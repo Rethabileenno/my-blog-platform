@@ -26,13 +26,18 @@ function CommentForm({ postId, onCommentSubmit }) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Comment:
-                <textarea value={content} onChange={(e) => setContent(e.target.value)} />
-            </label>
-            <button type="submit">Submit</button>
-        </form>
+        <form className="comment-form" onSubmit={handleSubmit}>
+        <label className="form-label">
+            Comment:
+            <textarea
+                className="form-textarea"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                placeholder="Write your comment here..."
+            />
+        </label>
+        <button className="submit-btn" type="submit">Submit</button>
+    </form>
     );
 }
 

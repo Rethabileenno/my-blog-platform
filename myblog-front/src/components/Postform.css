@@ -1,0 +1,74 @@
+/* Postform.css */
+
+/* Container styles */
+.form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial, sans-serif';
+}
+
+/* Title styles */
+.form-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+/* Label styles */
+.form-label {
+    display: block;
+    margin-bottom: 15px;
+    color: #555;
+    font-weight: bold;
+}
+
+/* Input and textarea styles */
+.form-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+}
+
+textarea.form-input {
+    height: 150px;
+    resize: vertical;
+}
+
+/* File input styles */
+.file-input input[type="file"] {
+    padding: 5px;
+}
+
+/* Button styles */
+.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Error message styles */
+.error-message {
+    color: red;
+    margin-top: 20px;
+    text-align: center;
+}

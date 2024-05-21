@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import "./Postform.css";
 
 function NewPostForm() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [date, setDate] = useState('');
     const [file, setFile] = useState(null);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
@@ -14,6 +16,7 @@ function NewPostForm() {
         const formData = new FormData();
         formData.append('title', title);
         formData.append('content', content);
+        formData.append('date', date);
         if (file) {
             formData.append('media', file, file.name);
         }
@@ -31,6 +34,7 @@ function NewPostForm() {
             .then(() => {
                 setTitle('');
                 setContent('');
+                setDate('');
                 setFile(null);
                 navigate('/');
             })
@@ -46,20 +50,25 @@ function NewPostForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
+        <form className="form-container" onSubmit={handleSubmit}>
+            <h2 className="form-title">Add New Post</h2>
+            <label className="form-label">
                 Title:
-                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+                <input className="form-input" type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
             </label>
-            <label>
+            <label className="form-label">
                 Content:
-                <textarea value={content} onChange={(e) => setContent(e.target.value)} />
+                <textarea className="form-input" value={content} onChange={(e) => setContent(e.target.value)} />
             </label>
-            <label>
+            <label className="form-label">
+                Date:
+                <input className="form-input" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+            </label>
+            <label className="form-label file-input">
                 Media:
                 <input type="file" onChange={handleFileChange} />
             </label>
-            <button type="submit">Submit</button>
+            <button className="submit-btn" type="submit">Submit</button>
         </form>
     );
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CommentForm from './CommentForm';
+import './PostPage.css';
 
 function PostPage() {
     const { id } = useParams();
@@ -45,15 +46,20 @@ function PostPage() {
     }
 
     return post ? (
-        <div>
-            <h2>{post.title}</h2>
-            <p>{post.content}</p>
-            {post.media && <img src={post.media} alt={post.title} />}
-            <CommentForm postId={id} onCommentSubmit={handleCommentSubmit} />
+        <div className="post-container">
+        <div className="post-content">
+            <h2 className="post-title">{post.title}</h2>
+            <p className="post-text">{post.content}</p>
+            {post.media && <img className="post-media" src={post.media} alt={post.title} />}
+        </div>
+        <CommentForm postId={id} onCommentSubmit={handleCommentSubmit} />
+        <div className="comments-section">
+            <h3 className="comments-title">Comments</h3>
             {comments.map((comment) => (
-                <p key={comment.id}>{comment.content}</p>
+                <p key={comment.id} className="comment-text">{comment.content}</p>
             ))}
         </div>
+    </div>
     ) : (
         <p>Loading...</p>
     );
