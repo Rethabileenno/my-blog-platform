@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import "./Postform.css";
 
 function NewPostForm() {
+
+
+
+    const handleBack = () => {
+        navigate('/');
+    };
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [date, setDate] = useState('');
@@ -49,9 +56,15 @@ function NewPostForm() {
         return <p>Error: {error.message}</p>;
     }
 
+  
+
     return (
+        
         <form className="form-container" onSubmit={handleSubmit}>
-            <h2 className="form-title">Add New Post</h2>
+
+            <button className="back-btn" type="button" onClick={handleBack}>Back</button>
+
+            <h2 className="heading">Add New Post</h2>
             <label className="form-label">
                 Title:
                 <input className="form-input" type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
@@ -70,6 +83,8 @@ function NewPostForm() {
             </label>
             <button className="submit-btn" type="submit">Submit</button>
         </form>
+
+
     );
 }
 

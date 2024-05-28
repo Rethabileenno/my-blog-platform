@@ -17,13 +17,14 @@ body {
 
 /* Header styles */
 .header {
-    background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0');
+    background-image: url("https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0");
+    /* https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0' */
     /* https://hollyhefton.com/wp-content/uploads/2023/02/featured-image_Navigating-divorce-with-children-5-tips-for-co-parenting-after-separation.png */
     color: white !important;
     padding: 20px;
     text-align: center;
     background-size: cover;
-    height: 1050px;
+    height: 1000px;
 
 }
 
@@ -70,15 +71,17 @@ body {
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
+
 }
 
 /* Post styles */
 .post {
-    background-color: #fff;
+    background-color:rgba(0, 0, 0, 0.1);
+
     border-radius: 5px;
     padding: 20px;
     width: calc(33.333% - 40px);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(14, 1, 1, 0.1);
 }
 
 .post h2 {
