@@ -2,10 +2,33 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
+const cors = require('cors');
+
 
 const app = express();
+
+app.use(cors());
+// app.use(express.json());
+// other middlewares and routes
+
+// app.listen(port, () => console.log(`Server is running on http://localhost:${port}`));
+
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.get('/blogPosts', (req, res) => {
+    fs.readFile(blogPostsFile, (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Error reading blog posts');
+        }
+        res.json(JSON.parse(data));
+        // res.json([{ id: 1, title: 'First Post', content: 'This is the first post', date: '2023-01-01' }]);
+
+    });
+});
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -28,15 +51,7 @@ if (!fs.existsSync(blogPostsFile)) {
     fs.writeFileSync(blogPostsFile, JSON.stringify([]));
 }
 
-app.get('/blogPosts', (req, res) => {
-    fs.readFile(blogPostsFile, (err, data) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send('Error reading blog posts');
-        }
-        res.json(JSON.parse(data));
-    });
-});
+
 
 
 app.post('/blogPosts', upload.single('media'), (req, res) => {
@@ -64,7 +79,7 @@ app.post('/blogPosts', upload.single('media'), (req, res) => {
     });
 });
 
-// Assuming express is already set up as in your previous example
+
 
 app.get('/blogPosts/:id', (req, res) => {
     console.log(`Fetching post with ID: ${req.params.id}`);
@@ -158,5 +173,7 @@ app.delete('/blogPosts/:id', (req, res) => {
     });
 });
 
-const port = 3000;
+// const port = 3000;
+// app.listen(port, () => console.log(`Server is running on http://localhost:${port}`));
+const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server is running on http://localhost:${port}`));

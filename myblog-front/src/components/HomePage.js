@@ -1,13 +1,64 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import "./Home.css";
+import apiUrl from '../config';
+
+
+
+export const fetchPosts = async () => {
+    try {
+        const response = await fetch(`${apiUrl}/blogPosts`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch posts');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching posts:', error);
+        throw error;
+    }
+};
+
+// import  { fetchPosts } from '../config';
+
 
 function HomePage() {
     const [posts, setPosts] = useState([]);
     const [error, setError] = useState(null);
 
+    // useEffect(() => {
+    //     fetch('/blogPosts')
+    //         .then((response) => {
+    //             if (!response.ok) {
+    //                 throw new Error('Failed to fetch posts');
+    //             }
+    //             return response.json();
+    //         })
+    //         .then(setPosts)
+    //         .catch((error) => {
+    //             console.error('Error fetching posts:', error);
+    //             setError(error);
+    //         });
+    // }, []);
+
+    // if (error) {
+    //     return <p>Error: {error.message}</p>;
+    // }
+
+
+    // useEffect(() => {
+    //     fetchPosts()
+    //         .then(setPosts)
+    //         .catch((error) => {
+    //             setError(error);
+    //         });
+    // }, []);
+
+    // if (error) {
+    //     return <p>Error: {error.message}</p>;
+    // }
+
     useEffect(() => {
-        fetch('/blogPosts')
+        fetch(`${apiUrl}/blogPosts`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch posts');
@@ -24,6 +75,7 @@ function HomePage() {
     if (error) {
         return <p>Error: {error.message}</p>;
     }
+    
 
     return (
         <div className="container">

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CommentForm from './CommentForm';
+import apiUrl from '../config';
 import './PostPage.css';
 
 function PostPage() {
@@ -9,8 +10,44 @@ function PostPage() {
     const [comments, setComments] = useState([]);
     const [error, setError] = useState(null);
 
+    // useEffect(() => {
+    //     fetch(`/blogPosts/${id}`)
+    //         .then((response) => {
+    //             if (!response.ok) {
+    //                 throw new Error('Failed to fetch post');
+    //             }
+    //             return response.json();
+    //         })
+    //         .then(setPost)
+    //         .catch((error) => {
+    //             console.error('Error fetching post:', error);
+    //             setError(error);
+    //         });
+
+    //     fetch(`/blogPosts/${id}/comments`)
+    //         .then((response) => {
+    //             if (!response.ok) {
+    //                 throw new Error('Failed to fetch comments');
+    //             }
+    //             return response.json();
+    //         })
+    //         .then(setComments)
+    //         .catch((error) => {
+    //             console.error('Error fetching comments:', error);
+    //             setError(error);
+    //         });
+    // }, [id]);
+
+    // const handleCommentSubmit = (newComment) => {
+    //     setComments((prevComments) => [...prevComments, newComment]);
+    // };
+
+    // if (error) {
+    //     return <p>Error: {error.message}</p>;
+    // }
+
     useEffect(() => {
-        fetch(`/blogPosts/${id}`)
+        fetch(`${apiUrl}/blogPosts/${id}`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch post');
@@ -23,7 +60,7 @@ function PostPage() {
                 setError(error);
             });
 
-        fetch(`/blogPosts/${id}/comments`)
+        fetch(`${apiUrl}/blogPosts/${id}/comments`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch comments');
@@ -44,6 +81,8 @@ function PostPage() {
     if (error) {
         return <p>Error: {error.message}</p>;
     }
+
+
 
     return post ? (
         <div className="post-container">
