@@ -8,10 +8,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors());
-// app.use(express.json());
-// other middlewares and routes
 
-// app.listen(port, () => console.log(`Server is running on http://localhost:${port}`));
 
 
 
