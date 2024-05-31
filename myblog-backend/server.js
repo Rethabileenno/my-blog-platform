@@ -7,7 +7,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors({
-    origin: 'https://my-blog-platform-1.onrender.com'
+    origin: 'https://my-blog-platform-front.onrender.com'
 }));
 
 app.use(express.json());
