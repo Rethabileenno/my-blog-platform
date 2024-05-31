@@ -11,18 +11,19 @@ async function fetchPosts() {
     return await response.json();
 }
 
-function HomePage({ newPost }) {
+function HomePage() {
     const [posts, setPosts] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         fetchPosts()
-          .then(setPosts)
-          .catch((error) => {
-            console.error('Error fetching posts:', error);
-            setError(error);
-          });
-      }, [newPost]);
+            .then(setPosts)
+            .catch((error) => {
+                console.error('Error fetching posts:', error);
+                setError(error);
+            });
+    }, []);
+
     if (error) {
         return <p>Error: {error.message}</p>;
     }
