@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 const cors = require('cors');
-const apiUrl = require('../config');
+const apiUrl = require('../config'); 
 
 const app = express();
 
