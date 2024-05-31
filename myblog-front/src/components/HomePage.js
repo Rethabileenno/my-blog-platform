@@ -95,7 +95,8 @@ function HomePage() {
                         <h2>{post.title}</h2>
                         <p>{post.content}</p>
                         <p>{new Date(post.date).toLocaleDateString()}</p> {/* Display the date */}
-                        {post.media && <img src={post.media} alt={post.title} className="post-media" />}
+                        {/* {post.media && <img src={post.media} alt={post.title} className="post-media" />} */}
+                        {post.media && <img src={`/uploads${post.media}`} alt={post.title} className="post-media" />}
                         <Link to={`/posts/${post.id}`} className="read-more">Read More</Link>
                     </div>
                 ))}

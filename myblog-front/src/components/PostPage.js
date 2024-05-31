@@ -89,7 +89,9 @@ function PostPage() {
         <div className="post-content">
             <h2 className="post-title">{post.title}</h2>
             <p className="post-text">{post.content}</p>
-            {post.media && <img className="post-media" src={post.media} alt={post.title} />}
+            {/* {post.media && <img className="post-media" src={post.media} alt={post.title} />} */}
+            {post.media && <img src={`/uploads${post.media}`} alt={post.title} className="post-media" />}
+
         </div>
         <CommentForm postId={id} onCommentSubmit={handleCommentSubmit} />
         <div className="comments-section">
