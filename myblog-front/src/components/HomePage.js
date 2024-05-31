@@ -31,13 +31,15 @@ function HomePage() {
     return (
         <div className="container">
             <header className="header">
-                <h1 className="title">Welcome to Parenting Blog for Single Dads</h1>
-                <h3>Dear Solo Dads and Friends, Welcome to Solo Dad Chronicles – your ultimate resource for navigating the joys and challenges of single fatherhood. We're thrilled to have you join our community of dedicated dads who are embracing the adventure of raising children solo.</h3>
+            <br/><br/><br/><br/><br/><br/><br/><br/>
+
+                <h1 className="title">Welcome to Parenting Blog for Single Dads<br/></h1>
+                <h3>Dear Solo Dads and Friends,<br/> Welcome to Solo Dad Chronicles – <br/>your ultimate resource for navigating the joys and challenges of single fatherhood.<br/> We're thrilled to have you join our community of dedicated <br/>dads who are embracing the adventure of raising children solo.</h3>
                 <Link to="/posts/new" className="add-post-link">Add New Post</Link>
             </header>
             <section className="hero">
                 <h2>Explore Our Latest Posts</h2>
-                <p>Thank you for choosing Solo Dad Chronicles as your trusted companion in the adventure of single fatherhood. We're honored to have you here, and we can't wait to embark on this incredible journey together!</p>
+                <p>Thank you for choosing Solo Dad Chronicles as your<br/> trusted companion in the adventure of single fatherhood. <br/>We're honored to have you here, and we can't wait to<br/> embark on this incredible journey together!</p>
             </section>
             <div className="posts-container">
                 {posts.map((post) => (

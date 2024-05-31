@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 const cors = require('cors');
-import apiUrl from '../config';
+const apiUrl = require('../config');
 
 const app = express();
 
