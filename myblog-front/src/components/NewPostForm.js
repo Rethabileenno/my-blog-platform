@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 // import { useHistory } from 'react-router-dom';
 import "./Postform.css";
 
@@ -47,6 +48,24 @@ function NewPostForm() {
             })
             .catch(setError);
     };
+
+
+ 
+    
+
+        useEffect(() => {
+            fetch('/blogPosts')
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Server response was not ok');
+                    }
+                })
+                .then(data => console.log(data))
+                .catch(error => console.error('There has been a problem with your fetch operation:', error));
+        }, []);
+
 
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
