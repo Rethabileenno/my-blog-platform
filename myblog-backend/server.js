@@ -9,6 +9,7 @@ const app = express();
 app.use(cors({
     origin: 'https://my-blog-platform-1.onrender.com'
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -44,7 +45,7 @@ app.get('/blogPosts', (req, res) => {
     fs.readFile(blogPostsFile, (err, data) => {
         if (err) {
             console.error(err);
-            return res.status(500).send('Error reading blog posts');
+            return res.status(500).json({ error: 'Error reading blog posts' });
         }
         res.json(JSON.parse(data));
     });
@@ -60,17 +61,20 @@ app.post('/blogPosts', upload.single('media'), (req, res) => {
         date: req.body.date,
         media: req.file ? `/uploads/${req.file.filename}` : null
     };
+
     fs.readFile(blogPostsFile, (err, data) => {
         if (err) {
-            console.error(err);
-            return res.status(500).send('Error reading blog posts');
+            console.error('Error reading blog posts:', err);
+            return res.status(500).json({ error: 'Error reading blog posts' });
         }
+
         const blogPosts = JSON.parse(data);
         blogPosts.push(newPost);
+
         fs.writeFile(blogPostsFile, JSON.stringify(blogPosts), (err) => {
             if (err) {
-                console.error(err);
-                return res.status(500).send('Error writing blog posts');
+                console.error('Error writing blog posts:', err);
+                return res.status(500).json({ error: 'Error writing blog posts' });
             }
             res.status(201).json(newPost);
         });
@@ -82,12 +86,12 @@ app.get('/blogPosts/:id', (req, res) => {
     fs.readFile(blogPostsFile, (err, data) => {
         if (err) {
             console.error(err);
-            return res.status(500).send('Error reading blog posts');
+            return res.status(500).json({ error: 'Error reading blog posts' });
         }
         const blogPosts = JSON.parse(data);
         const post = blogPosts.find((post) => post.id === parseInt(id));
         if (!post) {
-            return res.status(404).send('Post not found');
+            return res.status(404).json({ error: 'Post not found' });
         }
         res.json(post);
     });
@@ -98,7 +102,7 @@ app.get('/blogPosts/:id/comments', (req, res) => {
     fs.readFile(commentsFile, (err, data) => {
         if (err) {
             console.error(err);
-            return res.status(500).send('Error reading comments');
+            return res.status(500).json({ error: 'Error reading comments' });
         }
         const comments = JSON.parse(data);
         res.json(comments[id] || []);
@@ -114,7 +118,7 @@ app.post('/blogPosts/:id/comments', (req, res) => {
     fs.readFile(commentsFile, (err, data) => {
         if (err) {
             console.error(err);
-            return res.status(500).send('Error reading comments');
+            return res.status(500).json({ error: 'Error reading comments' });
         }
         const comments = JSON.parse(data);
         if (!comments[id]) {
@@ -124,7 +128,7 @@ app.post('/blogPosts/:id/comments', (req, res) => {
         fs.writeFile(commentsFile, JSON.stringify(comments), (err) => {
             if (err) {
                 console.error(err);
-                return res.status(500).send('Error writing comments');
+                return res.status(500).json({ error: 'Error writing comments' });
             }
             res.status(201).json(newComment);
         });
@@ -136,18 +140,18 @@ app.delete('/blogPosts/:id', (req, res) => {
     fs.readFile(blogPostsFile, (err, data) => {
         if (err) {
             console.error(err);
-            return res.status(500).send('Error reading blog posts');
+            return res.status(500).json({ error: 'Error reading blog posts' });
         }
         let blogPosts = JSON.parse(data);
         const initialLength = blogPosts.length;
         blogPosts = blogPosts.filter((post) => post.id !== parseInt(id));
         if (initialLength === blogPosts.length) {
-            return res.status(404).send('Post not found');
+            return res.status(404).json({ error: 'Post not found' });
         }
         fs.writeFile(blogPostsFile, JSON.stringify(blogPosts), (err) => {
             if (err) {
                 console.error(err);
-                return res.status(500).send('Error writing blog posts');
+                return res.status(500).json({ error: 'Error writing blog posts' });
             }
             res.status(204).send();
         });
