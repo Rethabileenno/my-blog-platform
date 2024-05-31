@@ -56,7 +56,7 @@ app.get('/blogPosts', (req, res) => {
 });
 
 
-app.post(`${apiUrl}/blogPosts`, upload.single('media'), (req, res) => {
+app.post('/blogPosts', upload.single('media'), (req, res) => {
     const newPost = {
         id: Date.now(),
         title: req.body.title,
