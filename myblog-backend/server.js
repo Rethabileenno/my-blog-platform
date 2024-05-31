@@ -4,32 +4,14 @@ const path = require('path');
 const multer = require('multer');
 const cors = require('cors');
 
-
 const app = express();
 
 app.use(cors());
-
-
-
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/blogPosts', (req, res) => {
-    fs.readFile(blogPostsFile, (err, data) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send('Error reading blog posts');
-        }
-        res.json(JSON.parse(data));
-        // res.json([{ id: 1, title: 'First Post', content: 'This is the first post', date: '2023-01-01' }]);
-
-    });
-});
-
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
 const blogPostsFile = path.join(__dirname, 'blogPosts.json');
+const commentsFile = path.join(__dirname, 'comments.json');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -47,9 +29,26 @@ if (!fs.existsSync('uploads')) {
 if (!fs.existsSync(blogPostsFile)) {
     fs.writeFileSync(blogPostsFile, JSON.stringify([]));
 }
+if (!fs.existsSync(commentsFile)) {
+    fs.writeFileSync(commentsFile, JSON.stringify({}));
+}
 
+// Define the root route
+app.get('/', (req, res) => {
+    res.send('Backend server is running.');
+});
 
+app.get('/blogPosts', (req, res) => {
+    fs.readFile(blogPostsFile, (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Error reading blog posts');
+        }
+        res.json(JSON.parse(data));
+    });
+});
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.post('/blogPosts', upload.single('media'), (req, res) => {
     const newPost = {
@@ -76,11 +75,7 @@ app.post('/blogPosts', upload.single('media'), (req, res) => {
     });
 });
 
-
-
 app.get('/blogPosts/:id', (req, res) => {
-    console.log(`Fetching post with ID: ${req.params.id}`);
-
     const { id } = req.params;
     fs.readFile(blogPostsFile, (err, data) => {
         if (err) {
@@ -96,18 +91,7 @@ app.get('/blogPosts/:id', (req, res) => {
     });
 });
 
-
-
-const commentsFile = path.join(__dirname, 'comments.json');
-
-if (!fs.existsSync(commentsFile)) {
-    fs.writeFileSync(commentsFile, JSON.stringify({}));
-}
-
-
 app.get('/blogPosts/:id/comments', (req, res) => {
-    console.log(`Fetching comments for post ID: ${req.params.id}`);
-
     const { id } = req.params;
     fs.readFile(commentsFile, (err, data) => {
         if (err) {
@@ -145,8 +129,6 @@ app.post('/blogPosts/:id/comments', (req, res) => {
     });
 });
 
-
-
 app.delete('/blogPosts/:id', (req, res) => {
     const { id } = req.params;
     fs.readFile(blogPostsFile, (err, data) => {
@@ -170,7 +152,5 @@ app.delete('/blogPosts/:id', (req, res) => {
     });
 });
 
-// const port = 3000;
-// app.listen(port, () => console.log(`Server is running on http://localhost:${port}`));
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server is running on http://localhost:${port}`));
