@@ -15,6 +15,9 @@ app.use(express.urlencoded({ extended: true }));
 
 const blogPostsFile = path.join(__dirname, 'blogPosts.json');
 const commentsFile = path.join(__dirname, 'comments.json');
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -51,7 +54,6 @@ app.get('/blogPosts', (req, res) => {
     });
 });
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.post('/blogPosts', upload.single('media'), (req, res) => {
     const newPost = {
