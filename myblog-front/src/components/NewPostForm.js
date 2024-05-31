@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import apiUrl from '../config';
 
 // import { useHistory } from 'react-router-dom';
 import "./Postform.css";
@@ -48,7 +49,7 @@ function NewPostForm() {
         //     })
         //     .catch(setError);
 
-        fetch('/blogPosts', {
+        fetch(`${apiUrl}/blogPosts`, {
             method: 'POST',
             body: formData,
         })
@@ -73,7 +74,7 @@ function NewPostForm() {
     
 
         useEffect(() => {
-            fetch('/blogPosts')
+            fetch(`${apiUrl}/blogPosts`)
                 .then(response => {
                     if (response.ok) {
                         return response.json();
