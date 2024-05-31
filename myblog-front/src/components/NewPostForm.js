@@ -29,24 +29,43 @@ function NewPostForm() {
             formData.append('media', file, file.name);
         }
 
+        // fetch('/blogPosts', {
+        //     method: 'POST',
+        //     body: formData,
+        // })
+        //     .then((response) => {
+        //         if (!response.ok) {
+        //             throw new Error('Failed to create post');
+        //         }
+        //         return response.json();
+        //     })
+        //     .then(() => {
+        //         setTitle('');
+        //         setContent('');
+        //         setDate('');
+        //         setFile(null);
+        //         navigate('/');
+        //     })
+        //     .catch(setError);
+
         fetch('/blogPosts', {
             method: 'POST',
             body: formData,
         })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Failed to create post');
-                }
-                return response.json();
-            })
-            .then(() => {
-                setTitle('');
-                setContent('');
-                setDate('');
-                setFile(null);
-                navigate('/');
-            })
-            .catch(setError);
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Failed to create post');
+            }
+            return response.text().then(text => text ? JSON.parse(text) : {})
+        })
+        .then(() => {
+            setTitle('');
+            setContent('');
+            setDate('');
+            setFile(null);
+            navigate('/');
+        })
+        .catch(setError);
     };
 
 
